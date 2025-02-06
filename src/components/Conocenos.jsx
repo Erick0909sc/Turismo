@@ -24,7 +24,7 @@ const Conocenos = () => {
           Bienvenido a <span className="text-blue-500">Turismo Ricky</span>
         </h2>
         <p className="text-lg text-gray-600">
-          Descubre los mejores destinos con nosotros. En Turismo Ricky,
+          Descubre los mejores destinos con nosotros. En Turismo Ricky ,
           ofrecemos experiencias inolvidables en la costa, sierra y selva del
           Perú, con paisajes y cultura únicos. Contamos con cómodos y seguros
           vehículos para cada tipo de viaje: un Chevrolet Spin para 7 pasajeros
