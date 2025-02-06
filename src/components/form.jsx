@@ -9,7 +9,10 @@ const ContactForm = () => {
   const [loading, setLoading] = useState(false);
 
   return (
-    <section id="contacto" className="min-h-screen flex flex-col items-center justify-center px-6 py-12 bg-gray-100">
+    <section
+      id="contacto"
+      className="min-h-screen flex flex-col items-center justify-center px-6 py-12 bg-gray-100"
+    >
       <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="text-center mb-8">
@@ -36,17 +39,24 @@ const ContactForm = () => {
               const response = await fetch("/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ...values, date: new Date().toISOString() }),
+                body: JSON.stringify({
+                  ...values,
+                  date: new Date().toISOString(),
+                }),
               });
 
               const data = await response.json();
 
               if (!response.ok) {
-                // Si el error es porque el correo ya está registrado
-                if (data.error === "Este correo ya ha sido registrado.") {
-                  toast.error("Este correo ya ha sido registrado.");
+                // Verifica el error 400 específico
+                if (
+                  response.status === 400 &&
+                  data.error === "Este correo ya ha sido registrado."
+                ) {
+                  toast.error(data.error); // Muestra el error específico
                 } else {
-                  toast.error("Error al enviar el mensaje.");
+                  toast.error("Error al enviar el mensaje."); // Error genérico
+                  console.error("Error del servidor:", data); // Registra el error completo para depurar
                 }
               } else {
                 toast.success("Mensaje enviado correctamente");
@@ -54,6 +64,7 @@ const ContactForm = () => {
               }
             } catch (error) {
               toast.error("Error de conexión");
+              console.error("Error de conexión:", error); // Registra los errores de conexión
             } finally {
               setLoading(false);
             }
@@ -62,34 +73,52 @@ const ContactForm = () => {
           {({ isSubmitting }) => (
             <Form className="space-y-4">
               <div>
-                <label className="block text-gray-700 font-medium">Nombre</label>
+                <label className="block text-gray-700 font-medium">
+                  Nombre
+                </label>
                 <Field
                   type="text"
                   name="name"
                   className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
                 />
-                <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </div>
 
               <div>
-                <label className="block text-gray-700 font-medium">Correo</label>
+                <label className="block text-gray-700 font-medium">
+                  Correo
+                </label>
                 <Field
                   type="email"
                   name="email"
                   className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
                 />
-                <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </div>
 
               <div>
-                <label className="block text-gray-700 font-medium">Mensaje</label>
+                <label className="block text-gray-700 font-medium">
+                  Mensaje
+                </label>
                 <Field
                   as="textarea"
                   name="message"
                   rows="4"
                   className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
                 />
-                <ErrorMessage name="message" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage
+                  name="message"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </div>
 
               <button
@@ -105,7 +134,9 @@ const ContactForm = () => {
       </div>
 
       <div className="mt-6 text-center">
-        <p className="text-lg text-gray-600 mb-2">También puedes contactarnos por WhatsApp :</p>
+        <p className="text-lg text-gray-600 mb-2">
+          También puedes contactarnos por WhatsApp :
+        </p>
         <a
           href="https://wa.me/51904145112"
           target="_blank"
