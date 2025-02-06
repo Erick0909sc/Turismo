@@ -7,7 +7,7 @@
 //     setIsMobileMenuOpen(!isMobileMenuOpen);
 //   };
 
-//   // Navigation items array  
+//   // Navigation items array
 //   const navItems = [
 //     { name: "Home", href: "/" },
 //     { name: "Conocenos", href: "#conocenos" },
@@ -117,15 +117,15 @@
 //   );
 // }
 
-import { useState } from "react";
+import React, { useState } from "react";
 
-export default function Navbar() {
+const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Navigation items array  
+  // Navigation items array
   const navItems = [
     { name: "Home", href: "home" },
     { name: "Conocenos", href: "conocenos" },
@@ -262,5 +262,6 @@ export default function Navbar() {
       </nav>
     </div>
   );
-}
+};
 
+export default Navbar;

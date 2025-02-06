@@ -22,7 +22,8 @@ import "aos/dist/aos.css";
 import Conocenos from "@/components/Conocenos";
 import ContactForm from "@/components/form";
 import Home from "@/components/Home";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/Navbar";
+
 
 const Index = () => {
   // Inicializa AOS
