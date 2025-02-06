@@ -22,6 +22,9 @@ import prisma from "@/lib/prisma";
 import nodemailer from "nodemailer";
 
 export default async function handler(req, res) {
+  console.log("EMAIL_USER:", process.env.EMAIL_USER);
+  console.log("EMAIL_PASS:", process.env.EMAIL_PASS);
+  console.log("DATABASE_URL:", process.env.DATABASE_URL);
   if (req.method === "POST") {
     const { name, email, message } = req.body;
 

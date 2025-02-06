@@ -48,15 +48,11 @@ const ContactForm = () => {
               const data = await response.json();
 
               if (!response.ok) {
-                // Verifica el error 400 específico
-                if (
-                  response.status === 400 &&
-                  data.error === "Este correo ya ha sido registrado."
-                ) {
-                  toast.error(data.error); // Muestra el error específico
+                // Si el error es porque el correo ya está registrado
+                if (data.error === "Este correo ya ha sido registrado.") {
+                  toast.error("Este correo ya ha sido registrado.");
                 } else {
-                  toast.error("Error al enviar el mensaje."); // Error genérico
-                  console.error("Error del servidor:", data); // Registra el error completo para depurar
+                  toast.error("Error al enviar el mensaje.");
                 }
               } else {
                 toast.success("Mensaje enviado correctamente");
@@ -64,7 +60,6 @@ const ContactForm = () => {
               }
             } catch (error) {
               toast.error("Error de conexión");
-              console.error("Error de conexión:", error); // Registra los errores de conexión
             } finally {
               setLoading(false);
             }
