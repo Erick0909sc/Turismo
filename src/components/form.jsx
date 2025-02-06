@@ -7,6 +7,7 @@ import { FaWhatsapp } from "react-icons/fa";
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api/contact"; 
 
   return (
     <section
@@ -36,7 +37,8 @@ const ContactForm = () => {
           onSubmit={async (values, { resetForm }) => {
             setLoading(true);
             try {
-              const response = await fetch("/api/contact", {
+              const response = await fetch(API_URL, {
+                // Usa la variable API_URL
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
