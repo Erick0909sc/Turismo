@@ -37,7 +37,7 @@ const ContactForm = () => {
           onSubmit={async (values, { resetForm }) => {
             setLoading(true);
             try {
-              const { data } = await axios.post("/api/Contact", {
+              const { data } = await axios.post("/api/contact", {
                 ...values,
                 date: new Date().toISOString(),
               });
