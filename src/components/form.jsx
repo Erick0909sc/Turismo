@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaWhatsapp } from "react-icons/fa";
+import axios from "axios";
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
@@ -36,30 +37,22 @@ const ContactForm = () => {
           onSubmit={async (values, { resetForm }) => {
             setLoading(true);
             try {
-              const response = await fetch("/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  ...values,
-                  date: new Date().toISOString(),
-                }),
+              const { data } = await axios.post("/api/Contact", {
+                ...values,
+                date: new Date().toISOString(),
               });
 
-              const data = await response.json();
-
-              if (!response.ok) {
-                // Si el error es porque el correo ya está registrado
-                if (data.error === "Este correo ya ha sido registrado.") {
-                  toast.error("Este correo ya ha sido registrado.");
-                } else {
-                  toast.error("Error al enviar el mensaje.");
-                }
-              } else {
-                toast.success("Mensaje enviado correctamente");
-                resetForm();
-              }
+              toast.success("Mensaje enviado correctamente");
+              resetForm();
             } catch (error) {
-              toast.error("Error de conexión");
+              if (
+                error.response?.data?.error ===
+                "Este correo ya ha sido registrado."
+              ) {
+                toast.error("Este correo ya ha sido registrado.");
+              } else {
+                toast.error("Error al enviar el mensaje.");
+              }
             } finally {
               setLoading(false);
             }
