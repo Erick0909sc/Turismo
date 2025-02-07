@@ -32,7 +32,7 @@ export default async function handler(req, res) {
   try {
     // Enviar correo con Resend
     await resend.emails.send({
-      from: "info@tu-dominio.com", // Debe estar verificado en Resend
+      from: "onboarding@resend.dev", // Debe estar verificado en Resend
       to: "erickingacalle@gmail.com",
       subject: "📩 Nuevo Mensaje de Contacto",
       html: `
